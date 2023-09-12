@@ -1,0 +1,97 @@
+<form action="/birds/:id/update" method="POST" enctype="multipart/form-data">
+  <input type="hidden" name="bird_id" value="<%= bird.bird_id %>" />
+
+  <h3>Common Names</h3>
+  <label for="primary_name">Primary Name</label>
+  <input
+    type="text"
+    name="primary_name"
+    value="<%= bird.primary_name %>"
+    required
+  />
+
+  <label for="english_name">English Name</label>
+  <input
+    type="text"
+    name="english_name"
+    value="<%= bird.english_name %>"
+    required
+  />
+  <br />
+
+  <h3>Taxonomy</h3>
+  <label for="scientific_name">Scientific Name</label>
+  <input
+    type="text"
+    name="scientific_name"
+    value="<%= bird.scientific_name %>"
+    required
+  />
+
+  <label for="order_name">Order</label>
+  <input
+    type="text"
+    name="order_name"
+    value="<%= bird.order_name %>"
+    required
+  />
+
+  <label for="family">Family</label>
+  <input type="text" name="family" value="<%= bird.family %>" required />
+  <br />
+
+  <h3>Size</h3>
+  <legend>Size</legend>
+  <label for="length">Length (cm)</label>
+  <input type="number" name="length" value="<%= bird.length %>" />
+
+  <label for="weight">Weight (g)</label>
+  <input type="number" name="weight" value="<%= bird.weight %>" />
+
+  <br />
+  <h3>Conservation</h3>
+
+  <label for="status_name">Status</label>
+  <select name="status_name" id="status">
+    <option>Not Threatened</option>
+    <option>Naturally Uncommon</option>
+    <option>Relict</option>
+    <option>Recovering</option>
+    <option>Declining</option>
+    <option>Nationally Increasing</option>
+    <option>Nationally Vulnerable</option>
+    <option>Nationally Endangered</option>
+    <option>Nationally Critical</option>
+    <option>Extinct</option>
+    <option>Data Deficient</option>
+  </select>
+
+  <br />
+  <h3>Photo</h3>
+  <label for="photographer">Photo Credit</label>
+  <input
+    type="text"
+    name="photographer"
+    value="<%= bird.photographer %>"
+    required
+  />
+
+  <label for="photo_upload">Upload New Photo</label>
+  <input type="file" name="bird_picture" id="photo_upload" />
+
+  <label for="photo_source">Photo Preview</label>
+  <img
+    id="upload_preview"
+    src="/images/<%= bird.filename %>"
+    alt="Photo of <%= bird.primary_name %>"
+  />
+  <input
+    id="upload_source"
+    type="text"
+    name="photo_source_original"
+    value="<%= bird.filename %>"
+    readonly="readonly"
+  />
+
+  <button class="button" type="submit">Save Bird</button>
+</form>

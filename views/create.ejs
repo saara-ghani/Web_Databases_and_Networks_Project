@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %> <%- include('partials/sidebar', { status:
+    status}) %>
+    <main id="birds">
+      <form action="/birds/create" method="POST" enctype="multipart/form-data">
+        <h3>Common Names</h3>
+        <label>Primary Name</label>
+        <input type="text" name="primary_name" value="" required />
+        <label>English Name</label>
+        <input type="text" name="english_name" value="" required />
+        <br />
+        <h3>Taxonomy</h3>
+        <label>Scientific Name</label>
+        <input type="text" name="scientific_name" value="" required />
+        <label>Order</label>
+        <input type="text" name="order_name" value="" required />
+        <label>Family</label>
+        <input type="text" name="family" value="" required />
+        <br />
+        <h3>Size</h3>
+        <label>Length (cm)</label>
+        <input type="number" name="length" value="" required />
+        <label>Weight (g)</label>
+        <input type="number" name="weight" value="" required />
+        <br />
+        <h3>Conservation</h3>
+        <label>Conservation Status</label>
+        <select name="status_name" id="status">
+          <option>Not Threatened</option>
+          <option>Naturally Uncommon</option>
+          <option>Relicit</option>
+          <option>Recovering</option>
+          <option>Declining</option>
+          <option>Nationally Increasing</option>
+          <option>Nationally Vulnerable</option>
+          <option>Nationally Endangered</option>
+          <option>Nationally Critical</option>
+          <option>Extinct</option>
+          <option>Data Deficient</option>
+        </select>
+        <br />
+        <h3>Photo</h3>
+        <label>Photo Credit</label>
+        <input type="text" name="photographer" value="" required />
+        <label>Upload New Photo</label>
+        <input type="file" name="bird_picture" required />
+        <br />
+
+        <button class="button" type="submit">Save Bird</button>
+      </form>
+    </main>
+    <%- include('partials/footer') %>
+  </body>
+</html>
