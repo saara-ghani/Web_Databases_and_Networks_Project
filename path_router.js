@@ -80,7 +80,7 @@ router.post('/birds/create/', async (req, res) => {
     const db = pool.promise();
 
     const photo_filename = req.files.bird_picture.name;
-    const uploadPath = path.join(__dirname, 'public', 'images', photo_filename);
+    let uploadPath = path.join(__dirname, 'public', 'images', photo_filename);
 
     try {
         fs.writeFile(uploadPath, req.files.bird_picture.data, (err) => {
@@ -89,6 +89,17 @@ router.post('/birds/create/', async (req, res) => {
         });
     } catch (error) {console.error('Error while saving image:', error);
     res.render('404-page');}
+
+    var new_file_name = "";
+    let counter = 1;
+
+    while (fs.existsSync(uploadPath)) {
+        const ext = photo_filename.split('.').pop();
+        new_file_name = photo_filename.replace(".", "").replace(ext, "");
+        new_file_name = `${new_file_name}(${counter}).${ext}`;
+        uploadPath = path.join(__dirname, 'public', 'images', new_file_name);
+        counter ++;
+    }
 
 
     const { primary_name, english_name, scientific_name, order_name, family, 
@@ -203,11 +214,22 @@ router.get('/birds/:id/update/', async (req, res) => {
 router.post('/birds/:id/update/', async (req, res) => {
     const db = pool.promise();
 
-    var photo_filename = ""
+    let photo_filename = ""
 
     if (req.files !== null) {
         photo_filename = req.files.bird_picture.name;
-        const uploadPath = path.join(__dirname, 'public', 'images', photo_filename);
+        let uploadPath = path.join(__dirname, 'public', 'images', photo_filename);
+
+        var new_file_name = "";
+        let counter = 1;
+
+        while (fs.existsSync(uploadPath)) {
+            const ext = photo_filename.split('.').pop();
+            new_file_name = photo_filename.replace(".", "").replace(ext, "");
+            new_file_name = `${new_file_name}(${counter}).${ext}`;
+            uploadPath = path.join(__dirname, 'public', 'images', new_file_name);
+            counter ++;
+          }
 
         try {
             fs.writeFile(uploadPath, req.files.bird_picture.data, (err) => {
@@ -216,8 +238,20 @@ router.post('/birds/:id/update/', async (req, res) => {
             });
         } catch (error) {console.error('Error while saving image:', error);
         res.render('404-page');}
+
     } else {
         photo_filename = req.body.photo_source_original;
+
+        var new_file_name = "";
+        let counter = 1;
+
+        while (fs.existsSync(uploadPath)) {
+            const ext = photo_filename.split('.').pop();
+            new_file_name = photo_filename.replace(".", "").replace(ext, "");
+            new_file_name = `${new_file_name}(${counter}).${ext}`;
+            uploadPath = path.join(__dirname, 'public', 'images', new_file_name);
+            counter ++;
+        }
     }
 
     const { bird_id, primary_name, english_name, scientific_name, order_name, family, 
